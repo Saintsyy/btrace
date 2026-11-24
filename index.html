@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -1251,7 +1252,7 @@
         <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-200">
           <div>
             <span class="font-mono text-xs font-bold text-slate-900">${found.id}</span>
-            <p class="text-xs font-semibold text-emerald-700">found.material({found.weight.toLocaleString('id-ID')} kg)</p>
+            <p class="text-xs font-semibold text-emerald-700">${found.material} (${found.weight.toLocaleString('id-ID')} kg)</p>
           </div>
           ${getStatusBadgeHTML(found.status)}
         </div>
@@ -1351,7 +1352,7 @@
         'Ditolak Industri': 'bg-rose-50 text-rose-700 border-rose-200'
       };
       const cls = map[status] || 'bg-slate-100 text-slate-700 border-slate-200';
-      return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold border cls">{status}</span>`;
+      return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${cls}">${status}</span>`;
     }
 
     function refreshAllViews() {
@@ -1392,7 +1393,7 @@
           <td class="py-3.5 px-4 text-xs font-medium text-slate-800">${b.material}</td>
           <td class="py-3.5 px-4 font-mono text-xs text-slate-700">${b.weight.toLocaleString('id-ID')} kg</td>
           <td class="py-3.5 px-4 text-xs">
-            <span class="font-semibold b.grade==='GradeA'?'text-emerald-700':b.grade==='GradeB'?'text-sky-700':'text-slate-400'">{b.grade}</span>
+            <span class="font-semibold ${b.grade === 'Grade A' ? 'text-emerald-700' : b.grade === 'Grade B' ? 'text-sky-700' : 'text-slate-400'}">${b.grade}</span>
           </td>
           <td class="py-3.5 px-4">${getStatusBadgeHTML(b.status)}</td>
           <td class="py-3.5 px-5 text-right">
@@ -1470,7 +1471,7 @@
           {
             step: 'Digital Material Passport Diterbitkan',
             time: '23 Nov 2026, 14:24',
-            desc: `Batch weight.toLocaleString('id-ID')kg({material}) dicatat dari origin({community}).`
+            desc: `Batch ${weight.toLocaleString('id-ID')} kg (${material}) dicatat dari ${origin} (${community}).`
           }
         ]
       };
@@ -1501,7 +1502,7 @@
           <div class="flex items-start justify-between gap-2">
             <div>
               <span class="font-mono text-xs font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded">${b.id}</span>
-              <h3 class="text-sm font-bold text-slate-900 mt-1.5">b.material({b.weight.toLocaleString('id-ID')} kg)</h3>
+              <h3 class="text-sm font-bold text-slate-900 mt-1.5">${b.material} (${b.weight.toLocaleString('id-ID')} kg)</h3>
               <p class="text-xs text-slate-500">${b.origin}</p>
             </div>
             <span class="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800">Menunggu Uji</span>
@@ -1560,7 +1561,7 @@
       });
 
       refreshAllViews();
-      showToast(`Batch idlolosSMARTQC({gradeVal}) dan masuk ke Industrial Offtake Matching!`, 'success');
+      showToast(`Batch ${id} lolos SMART QC (${gradeVal}) dan masuk ke Industrial Offtake Matching!`, 'success');
     }
 
     function rejectQC(id) {
@@ -1592,8 +1593,8 @@
                 ${getStatusBadgeHTML(b.status)}
                 <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">${b.grade} • Kontaminasi ${b.contamination}%</span>
               </div>
-              <h4 class="text-sm font-bold text-slate-900">b.material({b.weight.toLocaleString('id-ID')} kg) &rarr; <span class="text-emerald-700">${b.industry}</span></h4>
-              <p class="text-xs text-slate-500">Asal: b.origin•EstimasiNilaiTransaksi:<strongclass="text-slate-900font-mono">{formatRupiah(totalValue)}</strong> (${formatRupiah(b.pricePerKg)}/kg)</p>
+              <h4 class="text-sm font-bold text-slate-900">${b.material} (${b.weight.toLocaleString('id-ID')} kg) &rarr; <span class="text-emerald-700">${b.industry}</span></h4>
+              <p class="text-xs text-slate-500">Asal: ${b.origin} • Estimasi Nilai Transaksi: <strong class="text-slate-900 font-mono">${formatRupiah(totalValue)}</strong> (${formatRupiah(b.pricePerKg)}/kg)</p>
               ${b.feedback ? `<p class="text-xs text-slate-600 bg-slate-100 px-3 py-1.5 rounded-lg mt-1"><strong>Catatan Industri:</strong> ${b.feedback}</p>` : ''}
             </div>
 
@@ -1630,7 +1631,7 @@
       });
 
       refreshAllViews();
-      showToast(`Penyerapan b.id({b.weight.toLocaleString('id-ID')} kg) dikonfirmasi industri! Dashboard diperbarui.`, 'success');
+      showToast(`Penyerapan ${b.id} (${b.weight.toLocaleString('id-ID')} kg) dikonfirmasi industri! Dashboard diperbarui.`, 'success');
     }
 
     function rejectIndustryBatch(id) {
@@ -1667,7 +1668,7 @@
           </div>
           <div>
             <span class="text-slate-500 block">Berat & Mutu</span>
-            <strong class="text-slate-900">b.weight.toLocaleString('id-ID')kg({b.grade})</strong>
+            <strong class="text-slate-900">${b.weight.toLocaleString('id-ID')} kg (${b.grade})</strong>
           </div>
           <div>
             <span class="text-slate-500 block">Nilai Transaksi</span>
@@ -1802,4 +1803,5 @@
   </script>
 </body>
 </html>
+
 
